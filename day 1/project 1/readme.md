@@ -14,7 +14,7 @@
 ---
 
 ## Node 1: On form submission
-**Type:** `Form Trigger (n8n-nodes-base.formTrigger)`
+**Type:** `Form Trigger`
 
 **Purpose:** Collect user input through an IT Service Request form.
 
@@ -29,21 +29,22 @@
 
 ## Node 2: Edit Fields
 
-**Type:** `Set (n8n-nodes-base.set)`
+**Type:** `Edit Fields (Set)`
 
 **Purpose:** Generate a unique ticket ID from the form submission timestamp.
 
-| Parameter      | Value                                                                 |
-| -------------- | --------------------------------------------------------------------- |
-| **Field Name** | ID                                                                    |
-| **Expression** | `{{ $json.submittedAt.toDateTime().ts.toString(36).toUpperCase() }}` |
-| **Type**       | string                                                                |
+| Parameter                            | Value                                                                 |
+| ------------------------------------ | --------------------------------------------------------------------- |
+| **Field Name**                       | ID                                                                    |
+| **Expression**                       | `{{ $json.submittedAt.toDateTime().ts.toString(36).toUpperCase() }}`  |
+| **Type**                             | string                                                                |
+| **Include Other Input Fields**       | True                                                                  |
 
 ---
 
 ## Node 3: Create a file
 
-**Type:** `GitHub (n8n-nodes-base.github)`
+**Type:** `GitHub`
 
 **Purpose:** Save a new ticket file to a GitHub repository.
 
@@ -53,5 +54,5 @@
 | **Owner**          | your Github username                                                                                                                                                                  |
 | **Repository**     | your Github repo                                                                                                                                                                  |
 | **File Path**      | `day 1/project 1/tickets/{{ $json.ID }}.txt`                                                                                                                                                                          |
-| **File Content**   | Name: `{{ $('On form submission').item.json['Your Name'] }}`<br>Submitted: `{{ $('On form submission').item.json.submittedAt }}`<br>Description: `{{ $('On form submission').item.json['Issue description'] }}` |
+| **File Content**   | Name: `{{ $json['Your Name'] }}`<br>Submitted: `{{ $json.submittedAt }}`<br>Description: `{{ $json['Issue description'] }}` |
 | **Commit Message** | new ticket                                                                                                                                                                                                      |
