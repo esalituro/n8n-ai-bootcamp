@@ -67,7 +67,7 @@ day 2/project 8/documents/
 ### 5. Configure `Pinecone Vector Stors` Node
 - **Operation Mode**: `Insert Documents`
 - **Pinecone Index**: `documents`
-- **Embedding Batch Size**: `10`
+- **Embedding Batch Size**: `20`
 Options
 - **Pinecone Namespace**: `it`
 - **Clear Namespace**: `true`
